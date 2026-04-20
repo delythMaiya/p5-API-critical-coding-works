@@ -157,7 +157,7 @@ function draw() {
 ```
 <img src="73fd0b17-0187-46c9-b659-f53d42b1d14a.gif">
 My preview looked like it was starting from centre again and lines already made, instead of forming one by one.   
-To fix this, I must put the initialisin variables x and y = 200 out of draw(). Also, background (100) to setup too.   
+To fix this, I must put the initialising variables x and y = 200 out of draw(). Also, background (100) to setup too.   
  
 <img src="a17c57e6-75b2-4a5a-b3a7-f07254ee5e45.gif">
 
