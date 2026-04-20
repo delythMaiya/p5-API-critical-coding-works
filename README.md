@@ -2,11 +2,11 @@
 
 #### Assignments
 
-* [Assignment #2](Assignment2.md)
-* [Assignment #3](Assignment3.md)
-* [Assignment #4](Assignment4.md)
-* [Assignment #5](Assignment5.md)
-* [Assignment #6](Assignment6.md)
+* [Idea of Photography](Idea_of_Photography.md)
+* [Nodes](Nodes.md)
+* [TileTransformation](TileTransformation.md)
+* [Chiyogami](Chiyogami.md)
+* [WebAPILearningJournal.md](WebAPILearningJournal.md)
 * [Assignment #7](Assignment7.md)
 * [Assignment #8](Assignment8.md)
 * [Assignment #9](Assignment9.md)
