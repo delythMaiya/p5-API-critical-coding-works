@@ -17,8 +17,7 @@ function draw() {
   ellipse(mouseX, 200, 64, 64);
 }
 ```
-
-![tut1 (1)](https://git.arts.ac.uk/user-attachments/assets/8d895ba7-462b-471b-9923-926ea131fc34)
+<img src="8d895ba7-462b-471b-9923-926ea131fc34.png">
 
  2. Nested loops (applying to colour gradient)
    ```js
@@ -45,7 +44,7 @@ function draw() {
   }
 }
 ```
-   ![image](https://git.arts.ac.uk/user-attachments/assets/db739744-5d77-4539-8157-189e92b57507)
+   <img src="db739744-5d77-4539-8157-189e92b57507.png">
 
    3. Arrays[]
 ```js
@@ -71,7 +70,7 @@ function mousePressed(){
   }
 }
 ```
-   ![filefile](https://git.arts.ac.uk/user-attachments/assets/9936166a-0c0c-4f05-96f8-66c211945321)
+  <img src="9936166a-0c0c-4f05-96f8-66c211945321.png">
 
    4. random()  
       p5 random fucntion cannot be used outside of set up, as a global variable.
@@ -118,7 +117,7 @@ function draw() {
   rect(houseLeftTop, 170, houseRightTop, 170)
 }
 ```
-https://git.arts.ac.uk/user-attachments/assets/b7f6867b-6279-4c04-a8ae-7dc9325ae0a6
+
 
 5. random walk()  
    Brownian motion, animal forging for food, stock price fluctuations. Stochastic succession of steps. random() is uniform distrubution of probability, whereas random walk is based on the previous outcome.  
@@ -155,10 +154,10 @@ function draw() {
 
 
 ```
-![ran](https://git.arts.ac.uk/user-attachments/assets/73fd0b17-0187-46c9-b659-f53d42b1d14a)  
+<img src="73fd0b17-0187-46c9-b659-f53d42b1d14a.png">
 My preview looked like it was starting from centre again and lines already made, instead of forming one by one.   
 To fix this, I must put the initialisin variables x and y = 200 out of draw(). Also, background (100) to setup too.   
-![ran (1)](https://git.arts.ac.uk/user-attachments/assets/a17c57e6-75b2-4a5a-b3a7-f07254ee5e45)   
+ 
 
 **READING**
 The reading on Langdon Winner's Moses Bridge revealed to me how intention of a single person with enormous power can easily influence a structure and create inequality and propagate racism.  
@@ -178,18 +177,18 @@ Before attempting to replicate Vera Molnar's work, I took away these key points 
 
 I picked this image.  
 Within a rectangle, there are three columns. Each column contains a stack of 14 rectangles that are long horizontally, and the space between them are not uniform. There is an unifrom space between each columns and margins too. White background. 
-![image](https://git.arts.ac.uk/user-attachments/assets/a5fd113c-159d-4386-a622-37377a590d4f)  
+<img src="a5fd113c-159d-4386-a622-37377a590d4f.png">
 
 My final code https://editor.p5js.org/sizalyth/sketches/wtsCCwHSa 
 
 I started by setting up the three columns of the rectangles and assessing by eye approximmately where they would fit in the square.  
-![image](https://git.arts.ac.uk/user-attachments/assets/9468eba6-0eb9-42a9-892a-075eaddf37c3)  
+<img src="9468eba6-0eb9-42a9-892a-075eaddf37c3.png">
 Then, I used for loops to multiple the rectangles. Initially, the second rectangle was overlappting with the first and looked thicker, my maths was incrementing y = 35 + i*25. 
 I thought I can do the randomness of the spacing afterwards, and this was how it looked at this stage.   
-![image](https://git.arts.ac.uk/user-attachments/assets/27c61741-e187-4b06-97ad-fb4f0e33b896)  
+<img src="27c61741-e187-4b06-97ad-fb4f0e33b896.png">
 With using randomness as a multiplier for y axis value wasn't really working, and I realised also it's not really random for each column as it follows an equation.    
 Like random walk, I have to randomise the distance taking the value of the previous value, also I have to create an if statement so that the margin at the bottom is still there. 
-![image](https://git.arts.ac.uk/user-attachments/assets/c22e5eee-e367-40b1-ab9f-a4c3db244216) 
+<img src="c22e5eee-e367-40b1-ab9f-a4c3db244216.png">  
 This kind of multiplication makes the data skewed towards the first index.   
 ```js
    let y = 35;
@@ -200,7 +199,8 @@ This kind of multiplication makes the data skewed towards the first index.
      
   }
 ```
-I figured out that just randomising the value to add to the successive y would be the best for now.   ![image](https://git.arts.ac.uk/user-attachments/assets/90422e95-bb73-4045-a9a4-d149fb65d9e8)
+I figured out that just randomising the value to add to the successive y would be the best for now.     
+<img src="90422e95-bb73-4045-a9a4-d149fb65d9e8.png">
 random(18, 40) gave the closest results to the work after trying different values. 
 ```js
   let y = 35;
@@ -226,7 +226,8 @@ random(18, 40) gave the closest results to the work after trying different value
 ```
 Now, I have to work out how to create margin at the bottom without losing the number of rectangles. Reducing the maximum value of random() was not helping either.  
 The bottom three triangles across the column seem to be same position, so maybe Molnar wanted the top and bottom to be more or less aligned. 
-Also, I have to use nested loops instead so I changed it to that.  ![image](https://git.arts.ac.uk/user-attachments/assets/9c33a1ab-4722-4d49-8f1a-f2380cb0ff27)
+Also, I have to use nested loops instead so I changed it to that.    
+<img src="9c33a1ab-4722-4d49-8f1a-f2380cb0ff27.png">
 
 ```js
 function setup() {
@@ -254,7 +255,7 @@ function setup() {
 Creating my own version of the work.  
 
 I first created the ordered and 'perfect' version of the work without introducing deviations.   
-![image](https://git.arts.ac.uk/user-attachments/assets/2ccf609d-7080-430f-9096-ef1cc5466178)  
+<img src="2ccf609d-7080-430f-9096-ef1cc5466178.png">
 ```js
 function setup() {
   createCanvas(400, 400);
@@ -299,7 +300,7 @@ function setup() {
   }
 }
 ```
-![image](https://git.arts.ac.uk/user-attachments/assets/c8364516-0d94-4ebf-9795-5c488800ca4d)
+<img src="c8364516-0d94-4ebf-9795-5c488800ca4d.png">
 
 Code: https://editor.p5js.org/sizalyth/sketches/aKqMqp3Fa
 
