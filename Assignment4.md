@@ -17,7 +17,7 @@ function draw() {
   ellipse(mouseX, 200, 64, 64);
 }
 ```
-<img src="8d895ba7-462b-471b-9923-926ea131fc34.png">
+<img src="8d895ba7-462b-471b-9923-926ea131fc34.gif">
 
  2. Nested loops (applying to colour gradient)
    ```js
@@ -70,7 +70,7 @@ function mousePressed(){
   }
 }
 ```
-  <img src="9936166a-0c0c-4f05-96f8-66c211945321.png">
+  <img src="9936166a-0c0c-4f05-96f8-66c211945321.gif">
 
    4. random()  
       p5 random fucntion cannot be used outside of set up, as a global variable.
@@ -117,7 +117,7 @@ function draw() {
   rect(houseLeftTop, 170, houseRightTop, 170)
 }
 ```
-
+<video src= "b7f6867b-6279-4c04-a8ae-7dc9325ae0a6.mp4">
 
 5. random walk()  
    Brownian motion, animal forging for food, stock price fluctuations. Stochastic succession of steps. random() is uniform distrubution of probability, whereas random walk is based on the previous outcome.  
@@ -154,11 +154,11 @@ function draw() {
 
 
 ```
-<img src="73fd0b17-0187-46c9-b659-f53d42b1d14a.png">
+<img src="73fd0b17-0187-46c9-b659-f53d42b1d14a.gif">
 My preview looked like it was starting from centre again and lines already made, instead of forming one by one.   
 To fix this, I must put the initialisin variables x and y = 200 out of draw(). Also, background (100) to setup too.   
  
-
+<img src="a17c57e6-75b2-4a5a-b3a7-f07254ee5e45.gif">
 **READING**
 The reading on Langdon Winner's Moses Bridge revealed to me how intention of a single person with enormous power can easily influence a structure and create inequality and propagate racism.  
 I simultneously thought, this could not easily happen in the times we live now. For someone who is not elected (Moses) to have such a centralised power and control over multiple areas in public affair is unusual now, and protests would spark to stop the development if people are made aware, probably during this time, information was not as transparent between public officials and citizens, and also prejudice was accepted with no right to protest for black minorities. It was interesting to look at nuclear power plants as centralised power and solar panels as democratic too, I never thought of it that way. We can install solar panels on our houses and have control over, but we have significantly less control over power we get from privately owned or government owened energy sources. Maybe there are less problems related to work conditions but increase in gas prices and scarcity due to foreign affairs immediately affect us. However, I see nuclear power plants as a risky (safer to be controlled securely) but very stable way to power the nation with growing population and we absolutely need them. Some structures are centralised and that is the only way it can operate. What we can reduce that is a negative effect of centralisation is exactly like the case of McCormick, where a single man can have power over human welfare. By having workers unions and legislations that are monitored well, this can be reduced. Making the work place democratic within a centralised industry like transport or power stations is important.     
