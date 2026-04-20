@@ -117,7 +117,8 @@ function draw() {
   rect(houseLeftTop, 170, houseRightTop, 170)
 }
 ```
-<video src= "b7f6867b-6279-4c04-a8ae-7dc9325ae0a6.mp4"></video>
+<video src="b7f6867b-6279-4c04-a8ae-7dc9325ae0a6.mp4" autoplay loop muted playsinline style="max-width: 100%;">
+</video>
 
 5. random walk()  
    Brownian motion, animal forging for food, stock price fluctuations. Stochastic succession of steps. random() is uniform distrubution of probability, whereas random walk is based on the previous outcome.  
