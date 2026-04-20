@@ -406,7 +406,7 @@ function draw() {
 }
 ```
 
-Exercise V: randomised grid  
+Exercise V: randomised grid    
 .copy - copies pixel information   
 copy(
   srcImage,  // where pixels come from
@@ -414,7 +414,7 @@ copy(
   sw, sh,    // width & height of source rectangle
   dx, dy,    // where to paste
   dw, dh     // size when pasted (can stretch)
-);
+);   
 <img src="e9e3546d-d626-4ff0-80b9-2bedf96eda04.png">
 ```js
 let img;
