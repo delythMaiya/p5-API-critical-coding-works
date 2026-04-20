@@ -1,20 +1,19 @@
 
 **CODING**  
-For this assignment, I decided to use three tiles to transform - two are p5js sketches of QR code and a barcode, the other one is a picture of a barcode, and fragments of the picture (mini tiles) are sprinkeld within this picture. 
+I decided to use three tiles to transform - two are p5js sketches of QR code and a barcode, the other one is a picture of a barcode, and fragments of the picture (mini tiles) are sprinkeld within this picture. 
 Generated images look like this: 
-  https://editor.p5js.org/sizalyth/sketches/NZxY9ndQphttps://editor.p5js.org/sizalyth/sketches/NZxY9ndQp
-![image](https://git.arts.ac.uk/user-attachments/assets/e8bdae7c-6105-452c-9f40-3977c0f7c4eb)   ![image](https://git.arts.ac.uk/user-attachments/assets/0cbbbe21-cadb-4345-bd83-6f1d46bc1aa8)
-![image](https://git.arts.ac.uk/user-attachments/assets/c3097f08-06fb-4e4e-b5e7-076ebcbee146)   ![image](https://git.arts.ac.uk/user-attachments/assets/6beba94e-df5f-4ebc-bb81-1c696d4686db)
+ https://editor.p5js.org/sizalyth/sketches/NZxY9ndQphttps://editor.p5js.org/sizalyth/sketches/NZxY9ndQp
+<img width="815" height="811" alt="Screenshot 2026-04-20 at 15 15 45" src="https://github.com/user-attachments/assets/dac178fd-2c01-4c06-bd4b-d6515781504d" />  
 
 QR Code Sketch:  
 https://editor.p5js.org/sizalyth/sketches/Bt5IaZATz 
-![image](https://git.arts.ac.uk/user-attachments/assets/b7c77170-4359-48b1-b89e-09239c794094)
-Barcode Sketch (with random numbers generated each time)   
+<img width="400" height="400" alt="image" src="https://github.com/user-attachments/assets/f54ee1bf-f6fe-4b8d-9f19-388a6225600b" />
+Barcode Sketch (with random numbers generated each time)     
 https://editor.p5js.org/sizalyth/sketches/wnbNuK5ct
-![image](https://git.arts.ac.uk/user-attachments/assets/883ad313-4a4b-4495-90a1-bcee9c7b0db2)    
-fragments of picture tiles:   
+<img width="400" height="400" alt="image" src="https://github.com/user-attachments/assets/8ab63eed-4e0a-479c-bf9e-2923e612f276" />    
+fragments of picture tiles:     
 https://editor.p5js.org/sizalyth/sketches/EeFZ6wpqC  
-![image](https://git.arts.ac.uk/user-attachments/assets/ae47a191-83f0-4113-b43a-178e7c1b34ff)
+<img width="600" height="600" alt="image" src="https://github.com/user-attachments/assets/f322f163-068a-43a9-b561-1f6719758e8b" />  
 
 ```js (QR Code)
 let grids = [];
@@ -158,9 +157,7 @@ function display(){
   }
 }
 ```
-I just don't understand why with scale(), some of the lines are still protruding. I tried asking AI but nothing worked to solve this issue.  
-I'm trying to make the whole art half the size and be able to translate it, but some of the lines are not moving at all with it. 
-![image](https://git.arts.ac.uk/user-attachments/assets/52236f82-8e54-41e3-af1f-e756c50bd410)
+<img width="400" height="400" alt="image" src="https://github.com/user-attachments/assets/dd6e1367-0ea0-4f8a-ad0b-cbb1db380a6a" />
 
 ```js 
 function setup() {
@@ -197,7 +194,8 @@ function setup() {
 }
 ```
 To initially make this shape, using one tile, I individually plotted the translate() and rotate() to figure out the pattern to make a for loop.   
-![image](https://git.arts.ac.uk/user-attachments/assets/204e76d5-46c3-483c-bf03-48ae9248e0a3)
+<img width="400" height="400" alt="image" src="https://github.com/user-attachments/assets/da12b3a8-da53-4b85-b6aa-ad42d0229d25" />
+
 
 ```js
 function setup() {
