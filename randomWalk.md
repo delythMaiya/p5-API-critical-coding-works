@@ -2,7 +2,6 @@
 
 ## Random Walk and Brownian Motion 
 
-**LEARNING**  
 1. map() function
 ```js
 var col = 0;
