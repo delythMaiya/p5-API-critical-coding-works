@@ -1,13 +1,8 @@
-## Assignment #10
+## Is Photography Over? 
 
-**READING**
+**Reflection on "Is Photography Over?" by Trevor Paglen**
 
-
-## Is Photography Over? – Trevor Paglen
-
-This week’s reading reminded me of being a bit rude to my friend who took GCSE photography, when I said something like, “what do you even do? isn’t that easy?” It made me think about what photography is actually assessed on as an exam subject, especially now that photography is everywhere and doesn’t need specialist training anymore. At GCSE level, photography is assessed through things like how well you develop a theme, your documentation, and your editing process. This goes far beyond the stereotype of just taking a “good photo.”
-
-If algorithms and databases act as the “scripts” behind ANPR and other seeing machines, then themes and creative ideas act as the scripts behind the everyday and aesthetic photography we produce with our phones and cameras. In both cases, images are guided by an underlying structure or intention, rather than being neutral.
+If algorithms and databases act as the “scripts” behind ANPR and other seeing machines, then themes and creative ideas act as the scripts behind the everyday and aesthetic photography we produce with our phones and cameras. In both cases, images are guided by an underlying structure or intention, rather than being neutral. 
 
 When I first saw Michael Najjar’s High Altitude series, I didn’t think it had much context beyond showing dramatic mountain landscapes. After learning about the post-processing involved, especially how financial graphs are integrated into the images, the work became much more meaningful. Knowing that these images were made around 2008–2010 also adds context, as this was a time of global financial crisis. Najjar isn’t trying to show an accurate representation of the landscape in the way traditional photography might aim to. Instead, he shows how he wants to see the world.
 
@@ -19,7 +14,7 @@ I didn’t really get why post-mortem pictures are classified as “bending time
 Post-mortem photographs perhaps give us a sense of life and death existing at the same time. The body belongs to the moment after death, and pictures are something we normally associate with life. However, I still don't undrstand why this is bending time. 
 
 **CODING**
-## Selfish Pixel (Coding Task)  
+## Selfish Pixel (p5 Coding)  
 ![image](https://git.arts.ac.uk/user-attachments/assets/6c8bf8fc-e086-4579-9005-89cd30b5613f)
 
 view link: https://editor.p5js.org/sizalyth/full/f8qNYMILh 
@@ -135,9 +130,9 @@ function spread() {
 
 ```
 
-**REVIEW**
+**Other p5 coding sketches**  
 
-Dashed Line  
+Dashed Line    
 
 Some happy accidents:   
 ![image](https://git.arts.ac.uk/user-attachments/assets/97928d45-d213-4497-8eff-86eb9ae9f3f1)
@@ -189,43 +184,8 @@ array.forEach() - calls function on every element
 array.filter() - for elements that retunr true   
 array.sort(), array.map() etc.   
 
-Understanding recursion   
-Questions I had in the class code was 'what is length*3 for? (because buffer), why is able to draw many dashes with just one line() but that's because the a and b point values keep updating and splitting in mid point means 2, 4, 8 branches are created.  
-```js I tried to recreate and memorise the code.  ![image](https://git.arts.ac.uk/user-attachments/assets/bab8a9dc-7b92-4c0d-bfcd-a7ad437cdcbc)
 
-function setup() {
-  createCanvas(400, 400);
-  background(220);
-  let p1 = { x: 30, y: 50 };
-  circle(p1.x, p1.y, 5);
-  let p2 = { x: 300, y: 300 };
-  fill("red");
-  circle(p2.x, p2.y, 5);
-  let dashedLength = 5;
-  dashedLine(p1, p2, 5);
- }
-
-function dashedLine(a, b, Length){
-  let d = dist(a.x, a.y, b.x, b.y);
-  
-  if(d>Length*2){
-    let mid = {};
-    mid.x = lerp(a.x, b.x, 0.5);
-    mid.y = lerp(a.y, b.y, 0.5);
-    dashedLine(a, mid, Length);
-    dashedLine(mid, b, Length); 
-  }
-  else{
-    let ang = atan2(b.y - a.y, b.x - a.x);
-    let X1 = a.x + cos(ang)*Length;
-    let Y1 = a.y + sin(ang)*Length;
-    let X2 = b.x -cos(ang)*Length;
-    let Y2 = b.y -sin(ang)*Length;
-    line(X1, Y1, X2, Y2);
-    
-  }
- ```
-Transforming Media:  
+Transforming Media:    
 Averaging, slit-scanning, collage, glitch   
 scaling - image(myimage, 100, 100, 400, 400) 
 index = (width*y) + x*4   
@@ -459,6 +419,4 @@ function draw() {
 }
 ```
 
-
-**REFLECTING**
 
