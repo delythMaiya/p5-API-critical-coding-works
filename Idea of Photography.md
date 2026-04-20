@@ -15,7 +15,7 @@ Post-mortem photographs perhaps give us a sense of life and death existing at th
 
 **CODING**
 ## Selfish Pixel (Coding Task)  
-<img src="./images/6c8bf8fc-e086-4579-9005-89cd30b5613f.png">
+<img src= "6c8bf8fc-e086-4579-9005-89cd30b5613f.png">
 
 view link: https://editor.p5js.org/sizalyth/full/f8qNYMILh 
 code link: https://editor.p5js.org/sizalyth/sketches/f8qNYMILh   
