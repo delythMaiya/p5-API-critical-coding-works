@@ -138,8 +138,9 @@ function gotData(data){
   console.log(data);
 }
 ```
-now it shows the search hits! 
-![image](https://git.arts.ac.uk/user-attachments/assets/e64d25cd-1ad3-4cf8-b442-06dc68809348)  
+now it shows the search hits!   
+<img width="663" height="754" alt="image" src="https://github.com/user-attachments/assets/1fb9008a-0658-4b18-9179-9060915587dd" />  
+
 Based on the data structure returned on my result, this worked to retrieve a random title from the search result: 
 ```js
 function gotData(data){
@@ -361,7 +362,8 @@ function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
 }
 ```
-![Screenshot 2026-03-20 133035](https://git.arts.ac.uk/user-attachments/assets/8b4c8c9e-94b7-4ca5-ba5b-c0dc5f430f4b)
+<img width="464" height="400" alt="image" src="https://github.com/user-attachments/assets/22209acf-d4bc-4791-887d-da998392d0c2" />
+
 ![Screenshot 2026-03-20 133043](https://git.arts.ac.uk/user-attachments/assets/485f9942-02a5-4651-a5c6-692843e41d99)  
 
 The first link was really interesting :      
@@ -454,7 +456,8 @@ async function followChain(title, steps = 10) {
 followChain("Hello");
 ```
 Search result "Royal College of Music", so far the argument of everything leading back to philosophy is true. 
-![image](https://git.arts.ac.uk/user-attachments/assets/9fc18f73-1c6d-4450-8ed4-8e9ebb88c2f8)  
+<img width="427" height="582" alt="image" src="https://github.com/user-attachments/assets/16c2a6eb-b2fe-4e35-adf5-725052cd2d2c" />
+
 ![image](https://git.arts.ac.uk/user-attachments/assets/3fa625a0-8180-470c-a30f-a50b432faee8)  
 Now, I wanted to visulise this with line and nodes graphics, and reminded me of recursive functins and random walks, where lines are generated and the starting point shifts each time to the last ending point, but changing direction. I wanted this to happen for eveyrtime the first link tag is generated. 
 
