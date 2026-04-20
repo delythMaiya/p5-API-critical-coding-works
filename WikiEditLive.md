@@ -18,7 +18,7 @@ The first-link rule (following the first link in any Wikipedia article recursive
 Bertrand Russell's observation that "all human knowledge is inexact, uncertain" runs underneath the whole project. Wikipedia makes that uncertainty unusually visible: you can watch it being negotiated in real time, edit by edit.    
 
 Video Link   
-[![Watch the demo](https://ual.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=fb3df409-1278-4437-8925-b41c0127e3e6)]
+
 The project visualises two things:    
 1.  **Wikipedia's live edit stream**: thousands of anonymous volunteers, with no profit motive, continuously rewriting the publicly available knowledge to all of us. 
 2. **The first-link rule**: Clicking on the first valid link in any Wikipedia article, recursively, almost always leads to Philosophy, exposing the chain of any article collapses it back toward the same foundational concepts — exposing the hidden structure that holds different ideas together.   
@@ -36,7 +36,8 @@ The biggest challenge I faced was rate-limiting and working around the Wikipedia
 Through making this project, I discovered how volatile the information sphere is. When tensions around Iran were making headlines a few weeks ago, the edit stream surfaced frequent changes to the Iran War page in real time, including one editor attempting to change a phrase to "not necessarily an attack." The stream makes visible what is being contested, not just what has been settled.
 It also became a way to discover articles I would never have found otherwise — someone on the other side of the world sacrificing their time to submit knowledge they felt was worth editing. 
 For the category cloud in the chain view, without knowing anything about an article, the categories give you an immediate picture of what it belongs to and what surrounds it. An album appeared in the feed I had never heard of (picture below) but the categories alone told me it was a Foo Fighters record. In a way, this makes Wikipedia slightly closer to the clickbait, short-attention span interface of other media platforms by providing a short-cut of understanding something. 
-![image](https://git.arts.ac.uk/user-attachments/assets/72c5eec7-f85a-485d-8270-fbe6ac813e18)
+<img width="1438" height="696" alt="image" src="https://github.com/user-attachments/assets/74d016c8-575d-463a-b2dc-c0a1c7d9709d" />
+
 Following its first-link chain then traced a path outward: rock music, sound as a physical phenomenon, and eventually back to Philosophy. The chain reveals the architecture underneath them, the same structure Foucault was pointing at when he wrote about the order of things.  
 
 **References**  
@@ -96,17 +97,6 @@ Below are citations for resources that I have used, from youtube, articles to LL
     * Used to understand the underlying logic of `randomSeed` for consistent background category placement.
         * [Explain random.seed like I'm five](https://www.reddit.com/r/learnpython/comments/s678b0/explain_randomseed_like_im_five/)
 
-### **AI Tools**
-
-* **Claude (Anthropic) & Gemini (Google)**
-    * *Claude:* Assisted with the state management of the mouse wheel scrolling and implementing the `cache` Map logic.
-        * [Claude Shared Chat Reference](https://claude.ai/share/c860a00e-29a0-4deb-881c-a58d4a46c1ea). 
-    * *Gemini:* Assisted in translating the Python "First Link" logic into the JavaScript `getFirstLink` and `isValid` functions.
-        * [Gemini Shared Chat Reference](https://gemini.google.com/share/023272eecb55)
-   * * Gemini**
-    * *First Link Logic & Validation:* This specific chat was used to adapt the Python logic for finding the first non-parenthetical link into the JavaScript `isValid` and `getFirstLink` functions used in your code.
-        * [Gemini AI: Wikipedia First Link Implementation Logic](https://share.google/bIFZaE6JAw5yA87gz)
-     
 
 Learning about APIs and integrating them to p5js.   
 **Working with data and API**   
