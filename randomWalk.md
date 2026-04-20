@@ -184,10 +184,10 @@ Within a rectangle, there are three columns. Each column contains a stack of 14 
 My final code https://editor.p5js.org/sizalyth/sketches/wtsCCwHSa 
 
 I started by setting up the three columns of the rectangles and assessing by eye approximmately where they would fit in the square.  
-<img src="9468eba6-0eb9-42a9-892a-075eaddf37c3.png">
+<img src="9468eba6-0eb9-42a9-892a-075eaddf37c3.png">  
 Then, I used for loops to multiple the rectangles. Initially, the second rectangle was overlappting with the first and looked thicker, my maths was incrementing y = 35 + i*25. 
 I thought I can do the randomness of the spacing afterwards, and this was how it looked at this stage.   
-<img src="27c61741-e187-4b06-97ad-fb4f0e33b896.png">
+<img src="27c61741-e187-4b06-97ad-fb4f0e33b896.png">  
 With using randomness as a multiplier for y axis value wasn't really working, and I realised also it's not really random for each column as it follows an equation.    
 Like random walk, I have to randomise the distance taking the value of the previous value, also I have to create an if statement so that the margin at the bottom is still there. 
 <img src="c22e5eee-e367-40b1-ab9f-a4c3db244216.png">  
