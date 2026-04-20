@@ -1,6 +1,6 @@
 
 
-## Assignment #4
+## Random Walk and Brownian Motion 
 
 **LEARNING**  
 1. map() function
