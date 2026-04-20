@@ -14,7 +14,7 @@ I didn’t really get why post-mortem pictures are classified as “bending time
 Post-mortem photographs perhaps give us a sense of life and death existing at the same time. The body belongs to the moment after death, and pictures are something we normally associate with life. However, I still don't undrstand why this is bending time. 
 
 **CODING**
-## Selfish Pixel (Coding Task)  
+## Selfish Pixel (Code Art Work)  
 <img src= "6c8bf8fc-e086-4579-9005-89cd30b5613f.png">
 
 view link: https://editor.p5js.org/sizalyth/full/f8qNYMILh 
