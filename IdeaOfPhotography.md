@@ -150,7 +150,7 @@ Some happy accidents:
   }
 ```
 <img src= "273e1b0e-274f-4bce-a529-74a5a96d9c1f">
-I create dashed line by having arbitary += when updating the new starting x and y values. 
+I created the dashed lines by having arbitary += when updating the new starting x and y values. 
 ```js
 function setup() {
   createCanvas(400, 400);
