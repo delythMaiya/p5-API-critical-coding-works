@@ -1,17 +1,15 @@
-## Assignment #11
-
-**READING**
-
+## Chiyogami Papers With Code! 
 **CODING**  
-![image](https://git.arts.ac.uk/user-attachments/assets/0b1eea6b-5db8-4890-b853-4b9213f52b0f)   
+<img width="600" height="600" alt="image" src="https://github.com/user-attachments/assets/0d179e9e-969e-4124-b538-f03c2781e31e" />
 
 View link: https://editor.p5js.org/sizalyth/full/O0tsCNZMK 
 Sketch Link: https://editor.p5js.org/sizalyth/sketches/O0tsCNZMK
 
-I took inspiration from Japanese Chiyogami papers. Specififically, the pattern in this image; ![image](https://git.arts.ac.uk/user-attachments/assets/498b5353-7ed0-441c-9639-fd83d153221b).  
-Also, I wanted to add sensu fans like this with fractals inside ![image](https://git.arts.ac.uk/user-attachments/assets/50d6366e-9026-48c3-adb1-9f870d0e9a9b)
+I took inspiration from Japanese Chiyogami papers. Specififically, the pattern in this image; 
+<img width="768" height="432" alt="image" src="https://github.com/user-attachments/assets/ef7e1cf9-9e6e-481b-9292-ddde2f8e99b4" />
 
-![image](https://git.arts.ac.uk/user-attachments/assets/37592777-fb2b-47f7-800f-569363214fdf)
+Also, I wanted to add sensu fans like this with fractals inside.     
+<img width="400" height="400" alt="image" src="https://github.com/user-attachments/assets/890c3bbc-0320-4603-aea0-142ddd7064a8" />
 
 ```js
 function setup() {
@@ -44,7 +42,8 @@ function drawRect(x, y, w, h, depth) {
 }
 ```
 Square inside the square, and then adding two lines across.  
-![image](https://git.arts.ac.uk/user-attachments/assets/7338e586-1775-4167-aa5c-bcc0de344873)  
+<img width="400" height="400" alt="image" src="https://github.com/user-attachments/assets/5a8ee1d1-d049-4223-8eff-f20fb2c3cd4b" />
+
 
 ```js
     quad(x + w / 2, y, x + w, y + h / 2, x + w / 2, y + h, x, y + h / 2); //square inside the sqaure
@@ -56,7 +55,8 @@ Square inside the square, and then adding two lines across.
     line(pointC.x, pointC.y, pointD.x, pointD.y);
 ```  
 I initially made the mistake of adding ellipse by incrementing +10 pixels but I had to make it relative to each size of the square, so I took the distance of one quad and divided it by a number that looked the best.  
-![image](https://git.arts.ac.uk/user-attachments/assets/f3e79cf1-d03d-47c6-a91b-aa574d1033ba)  
+<img width="400" height="400" alt="image" src="https://github.com/user-attachments/assets/39416699-3fbb-4a78-98ed-9bf9ed0ae498" />
+
 
 ```js
    fill(255);
@@ -68,9 +68,9 @@ I initially made the mistake of adding ellipse by incrementing +10 pixels but I 
     rect(x, y, w, h); //main square
 ```  
 Now, I wanted to add arcs for the sensu fans and hopefully place fractals inside it too.  
-I was very stuck with this, and I watched this video to learn how to draw an arc. https://youtu.be/IWLpIJMVRtg?si=5il5t2TY-Ov17exx 
-I first made a simple template of the arc with arbitary values. 
-![image](https://git.arts.ac.uk/user-attachments/assets/8f3a4894-ce74-475e-a58b-bbfb7ce44c32)    
+I first made a simple template of the arc with arbitary values.     
+<img width="214" height="198" alt="image" src="https://github.com/user-attachments/assets/f0d9cbc3-562c-4e60-b2da-7dbaafb0fcc4" />  
+
 ```js
 function setup() {
   createCanvas(400, 400);
@@ -86,8 +86,8 @@ function setup() {
   arc(x, y, w/4, h/4, start, end)
 }
 ```
-![image](https://git.arts.ac.uk/user-attachments/assets/cdeb3996-3d72-457c-9af3-82b9d0fbdfe2)
-![image](https://git.arts.ac.uk/user-attachments/assets/f5854f20-93dd-4792-8271-1f97126283ae)  
+<img width="400" height="400" alt="image" src="https://github.com/user-attachments/assets/210e265a-dd55-408b-8f0d-6f4edb8ead87" />  
+
 The division wasb't really working with the mapping of the angle. I just changed the angle to start from lower number, as I couldn't figure out how to map lines when angles go from a higher value to low after going clockwise. 
 ```js
 function setup() {
@@ -114,7 +114,8 @@ function setup() {
   }
 }
 ```
-![image](https://git.arts.ac.uk/user-attachments/assets/e58afc3e-d69c-4f3c-b814-27f60287692a)    
+<img width="400" height="400" alt="image" src="https://github.com/user-attachments/assets/8665bf01-f3f3-423a-9d6f-17992fcf18bb" />  
+
 Using the for loop, I created a triangle that connects between one point on the inner arc with two points on the outer arc, using two angle variables one for the current i and one for the next i. 
 Then, using recursion and from exercises with Tyler Hobbs website, I passed these parameters to a fucntion to divide it in a random skewed way.     
 ```js
@@ -173,7 +174,8 @@ function sensuRecur(ax, ay, bx, by, cx, cy, depth) {
 }
 ```
 Now I am going to combine this into one sketch.    
-![image](https://git.arts.ac.uk/user-attachments/assets/92da181a-c6de-4f47-bf8d-5fbcdc3ab541)
+<img width="600" height="600" alt="image" src="https://github.com/user-attachments/assets/c46c1b75-82aa-441b-95be-4da2ef135a68" />
+
 ```js
 function setup() {
   createCanvas(600, 600);
@@ -280,10 +282,11 @@ function drawRect(x, y, w, h, depth) {
 ```
 
 
-**REVIEW** 
-I tried Tyler Hobbs' webiste to practice triangles. I was writing my code into github as I was doing this, but I lost everything when the computer shut down..but luckily I remmebered quite a lot of it so I was able to write it again quickly!  
 
-![image](https://git.arts.ac.uk/user-attachments/assets/a0b7b2aa-bc68-4b92-a2bc-253748e4bdc9)
+I also tried Tyler Hobbs' webiste to practice triangles! 
+
+<img width="400" height="400" alt="image" src="https://github.com/user-attachments/assets/0914d9f9-3b5d-4094-ba51-b4c1237209a5" />
+
 ```js
 function setup() {
   createCanvas(400, 400);
@@ -314,7 +317,8 @@ function splitTriangle(ax, ay, bx, by, cx, cy, depth){
 }
 ```
 
-![image](https://git.arts.ac.uk/user-attachments/assets/f442d343-c117-4b42-8b21-fa009e6ed2e3)  
+<img width="400" height="400" alt="image" src="https://github.com/user-attachments/assets/e6515815-cbf9-4cfa-9202-0342482fa1f0" />
+
 ```js
 //3 options probability
 function setup() {
@@ -357,7 +361,8 @@ function splitTriangle(ax, ay, bx, by, cx, cy, depth) {
 Self balancing  
 For this, I compared the longest sides of the triangles and for the longest one, I used the lerp function to place a point.   
 When I did it with random(), some triangles became too thin, random(0.4, 0.8) worked the best. 
-![image](https://git.arts.ac.uk/user-attachments/assets/df6a6414-73e0-4212-9644-042bef42455d)
+<img width="400" height="400" alt="image" src="https://github.com/user-attachments/assets/5b423442-83f0-40ec-b38c-09ac5c60d158" />
+
 ```js
 function splitTriangle(ax, ay, bx, by, cx, cy, depth) {
   let disAB = dist(ax, ay, bx, by);
@@ -386,13 +391,15 @@ function splitTriangle(ax, ay, bx, by, cx, cy, depth) {
 }
 ```
 Non-deterministic base case   
-![image](https://git.arts.ac.uk/user-attachments/assets/8117dcb8-3772-4382-99ae-f368168033c2)  
+<img width="400" height="400" alt="image" src="https://github.com/user-attachments/assets/fab74c90-e5eb-437a-b6ac-af09b7b6de0e" />
+
 I wasn't sure how to do this but I achieved this by adjusting the following values.
 ```js
  if (random()<0.5 || depth > 6) {
 ```
 Some cool textures:  
-![image](https://git.arts.ac.uk/user-attachments/assets/f45f94e0-349e-4b92-b4c3-d6b769d283d7)
+<img width="400" height="400" alt="image" src="https://github.com/user-attachments/assets/263f8d7f-cf37-4e1d-a1f2-2be5b2abb977" />
+
 ```js
 function setup() {
   createCanvas(400, 400);
@@ -415,7 +422,8 @@ function drawRect(x, y, w, h, depth) {
   }
 }
 ```
-![image](https://git.arts.ac.uk/user-attachments/assets/f760fec9-b922-47f1-ae20-9f465225e724)
+<img width="400" height="400" alt="image" src="https://github.com/user-attachments/assets/52128cf5-53be-4862-8520-4e7ab2bb832f" />
+
 ```js
 function setup() {
   createCanvas(400, 400);
