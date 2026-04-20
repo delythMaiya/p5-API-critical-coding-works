@@ -14,7 +14,7 @@ I didn’t really get why post-mortem pictures are classified as “bending time
 Post-mortem photographs perhaps give us a sense of life and death existing at the same time. The body belongs to the moment after death, and pictures are something we normally associate with life. However, I still don't undrstand why this is bending time. 
 
 **CODING**
-## Selfish Pixel (p5 Coding)  
+## Selfish Pixel (Coding Task)  
 ![image](https://git.arts.ac.uk/user-attachments/assets/6c8bf8fc-e086-4579-9005-89cd30b5613f)
 
 view link: https://editor.p5js.org/sizalyth/full/f8qNYMILh 
@@ -130,9 +130,9 @@ function spread() {
 
 ```
 
-**Other p5 coding sketches**  
+**REVIEW**
 
-Dashed Line    
+Dashed Line  
 
 Some happy accidents:   
 ![image](https://git.arts.ac.uk/user-attachments/assets/97928d45-d213-4497-8eff-86eb9ae9f3f1)
@@ -184,8 +184,43 @@ array.forEach() - calls function on every element
 array.filter() - for elements that retunr true   
 array.sort(), array.map() etc.   
 
+Understanding recursion   
+Questions I had in the class code was 'what is length*3 for? (because buffer), why is able to draw many dashes with just one line() but that's because the a and b point values keep updating and splitting in mid point means 2, 4, 8 branches are created.  
+```js I tried to recreate and memorise the code.  ![image](https://git.arts.ac.uk/user-attachments/assets/bab8a9dc-7b92-4c0d-bfcd-a7ad437cdcbc)
 
-Transforming Media:    
+function setup() {
+  createCanvas(400, 400);
+  background(220);
+  let p1 = { x: 30, y: 50 };
+  circle(p1.x, p1.y, 5);
+  let p2 = { x: 300, y: 300 };
+  fill("red");
+  circle(p2.x, p2.y, 5);
+  let dashedLength = 5;
+  dashedLine(p1, p2, 5);
+ }
+
+function dashedLine(a, b, Length){
+  let d = dist(a.x, a.y, b.x, b.y);
+  
+  if(d>Length*2){
+    let mid = {};
+    mid.x = lerp(a.x, b.x, 0.5);
+    mid.y = lerp(a.y, b.y, 0.5);
+    dashedLine(a, mid, Length);
+    dashedLine(mid, b, Length); 
+  }
+  else{
+    let ang = atan2(b.y - a.y, b.x - a.x);
+    let X1 = a.x + cos(ang)*Length;
+    let Y1 = a.y + sin(ang)*Length;
+    let X2 = b.x -cos(ang)*Length;
+    let Y2 = b.y -sin(ang)*Length;
+    line(X1, Y1, X2, Y2);
+    
+  }
+ ```
+Transforming Media:  
 Averaging, slit-scanning, collage, glitch   
 scaling - image(myimage, 100, 100, 400, 400) 
 index = (width*y) + x*4   
@@ -418,5 +453,6 @@ function draw() {
   }
 }
 ```
+
 
 
