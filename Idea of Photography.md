@@ -15,7 +15,7 @@ Post-mortem photographs perhaps give us a sense of life and death existing at th
 
 **CODING**
 ## Selfish Pixel (Coding Task)  
-![image](https://git.arts.ac.uk/user-attachments/assets/6c8bf8fc-e086-4579-9005-89cd30b5613f)
+![Selfish Pixel](./images/6c8bf8fc-e086-4579-9005-89cd30b5613f.png)
 
 view link: https://editor.p5js.org/sizalyth/full/f8qNYMILh 
 code link: https://editor.p5js.org/sizalyth/sketches/f8qNYMILh   
@@ -26,11 +26,11 @@ Each pixel is a gene, a meme, and random 30 pixels are plotted onto the canvas f
 
 Original Picture : Picture of Barghain entrance 
 
-![Screenshot 2026-01-30 092323](https://git.arts.ac.uk/user-attachments/assets/c45a6f68-5138-4ddf-9f6c-a4ec7b334dbd)
+![Screenshot 2026-01-30 092323](./images/c45a6f68-5138-4ddf-9f6c-a4ec7b334dbd.png)
 
 I tried different pictures too with different colour profile:  
 Japan
-![image](https://git.arts.ac.uk/user-attachments/assets/37ccc967-1fc9-42c4-bd04-dc3dcb26d2fc)
+![image](./images/37ccc967-1fc9-42c4-bd04-dc3dcb26d2fc.png)
 fog  
 ![image](https://git.arts.ac.uk/user-attachments/assets/f6d36c17-772c-4825-a96c-d66b16460832)  
 
