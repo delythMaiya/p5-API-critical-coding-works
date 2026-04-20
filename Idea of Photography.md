@@ -26,16 +26,16 @@ Each pixel is a gene, a meme, and random 30 pixels are plotted onto the canvas f
 
 Original Picture : Picture of Barghain entrance 
 
-![Screenshot 2026-01-30 092323](./images/c45a6f68-5138-4ddf-9f6c-a4ec7b334dbd.png)
+<img src= "45a6f68-5138-4ddf-9f6c-a4ec7b334dbd.png">
 
 I tried different pictures too with different colour profile:  
 Japan
-![image](./images/37ccc967-1fc9-42c4-bd04-dc3dcb26d2fc.png)
+<img src= "37ccc967-1fc9-42c4-bd04-dc3dcb26d2fc.png">
 fog  
-![image](https://git.arts.ac.uk/user-attachments/assets/f6d36c17-772c-4825-a96c-d66b16460832)  
+<img src= "https://git.arts.ac.uk/user-attachments/assets/f6d36c17-772c-4825-a96c-d66b16460832.png">
 
 For this fog image, I also created another version where I extract just the pixel colour information and then outputs it the same way.  
-![image](https://git.arts.ac.uk/user-attachments/assets/defa1988-d80f-4d78-9d07-d6aa0726fb7c)
+<img src= "defa1988-d80f-4d78-9d07-d6aa0726fb7c.png">
 
 
 ```js
@@ -135,7 +135,7 @@ function spread() {
 Dashed Line  
 
 Some happy accidents:   
-![image](https://git.arts.ac.uk/user-attachments/assets/97928d45-d213-4497-8eff-86eb9ae9f3f1)
+<img src= "97928d45-d213-4497-8eff-86eb9ae9f3f1.png">
 ```js
  let xd = dx / numStep;
   let yd = dy / numStep;
@@ -149,7 +149,7 @@ Some happy accidents:
     x0 = x; //just updating x 
   }
 ```
-![image](https://git.arts.ac.uk/user-attachments/assets/273e1b0e-274f-4bce-a529-74a5a96d9c1f)  
+<img src= "273e1b0e-274f-4bce-a529-74a5a96d9c1f">
 I create dashed line by having arbitary += when updating the new starting x and y values. 
 ```js
 function setup() {
@@ -247,7 +247,7 @@ function draw() {
 }
 ```
 Exercise 1: Red Scale    
-![image](https://git.arts.ac.uk/user-attachments/assets/bbee429f-d997-4d75-a9f3-f9b7b56a526f)  
+<img src="bbee429f-d997-4d75-a9f3-f9b7b56a526f.png">  
 The initial mistake I made was not using brightness as variable but overwriting by 255 on the channel I want.   
 ```js
 let img;
@@ -278,7 +278,7 @@ function setup() {
 ```
 
 Exercise II: Inversion (255-original value for each channel    
-![image](https://git.arts.ac.uk/user-attachments/assets/8831d250-8345-4327-b143-8a39b5bcecf5)
+<img src="831d250-8345-4327-b143-8a39b5bcecf5.png">
 
 ```js 
 
@@ -309,7 +309,7 @@ function setup() {
 }
 ```
 Point-sampling (fill() with x and y values skipping pixels).   
-![image](https://git.arts.ac.uk/user-attachments/assets/5b2bfe4c-ce5d-4474-abae-16f9df731db5)
+<img src="5b2bfe4c-ce5d-4474-abae-16f9df731db5.png">
 
 ```js
 let img;
@@ -340,7 +340,7 @@ function setup() {
 }
 ```
 Exercise III : Picking a column in an image and stretching (slit=-scan effect)  
-![image](https://git.arts.ac.uk/user-attachments/assets/e98505bd-a2bd-4974-9b28-2ea1dac4e21c)
+<img src="e98505bd-a2bd-4974-9b28-2ea1dac4e21c.png">
 ```js
 let img;
 function preload() {
@@ -375,7 +375,7 @@ Exercise IV: Image of horizontal and vertical lines
  let col = img.get(x, y); returns each pixel values rgba.   
  brightness is average of rbg/3.  
  max() meeans pick maximum value between a, b.    
- ![image](https://git.arts.ac.uk/user-attachments/assets/987464cc-73b5-46c7-b939-698adad90516)
+ <img src = "987464cc-73b5-46c7-b939-698adad90516.png">
 ```js
 let img;
 function preload() {
@@ -415,7 +415,7 @@ copy(
   dx, dy,    // where to paste
   dw, dh     // size when pasted (can stretch)
 );
-![image](https://git.arts.ac.uk/user-attachments/assets/e9e3546d-d626-4ff0-80b9-2bedf96eda04)
+<img src="e9e3546d-d626-4ff0-80b9-2bedf96eda04.png">
 ```js
 let img;
 let blocks = [];
