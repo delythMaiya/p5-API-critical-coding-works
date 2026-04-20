@@ -1,6 +1,4 @@
-## Assignment #15
-
-**READING**
+## Gamma Ray Burst Data API ! 
 
 ***CODING***     
 Gamma Ray Bursts in the Universe   
@@ -12,7 +10,7 @@ Sketch Link: https://editor.p5js.org/sizalyth/sketches/OwBZbadS1
 
 Before attempting flashes, I started with mapping each explosion according to its celestial latitude and longitude, to visualise all of them. 
 
-![image](https://git.arts.ac.uk/user-attachments/assets/ee0b86d0-e528-4790-9e9b-ca08539d4e0e)
+<img width="1380" height="800" alt="image" src="https://github.com/user-attachments/assets/a965c4fe-d330-443c-9dc2-1e7bcde09701" />
 
 My starting point was when I revisited Richard Feynman's writings for physics for inspirations and I thought this was beautiful:   
 _"..A vast pattern—of which I am a part—perhaps my stuff was belched from some forgotten star"_, in other words, heavy elements in our bodies such as carbon, nitrogen and oxygen came from dead stars (nucleosynthesis). They cosmic rays scatter across the planet. Every element heavier than hydrogen was forged in the cores of the stars that died billions of years ago. I didn't really think of this relationship between stars and us until now, so I was inspired.   
@@ -21,12 +19,15 @@ Cosmic rays from the universe including GRBs contribute towards the creation of 
 **1. Finding the right data source.**
 I used NASA's data for gamma ray bursts (GRB), the date is speicified from start of our course, September to now. <a href="https://heasarc.gsfc.nasa.gov/cgi-bin/W3Browse/w3table.pl?MissionHelp=gamma-ray_bursts">GRB Data</a>. 
 
-![image](https://git.arts.ac.uk/user-attachments/assets/d34fc34d-d949-4e98-b7be-4406fb16fe30)
-![image](https://git.arts.ac.uk/user-attachments/assets/47e9536e-9317-440c-8ac2-89b9f8759a20)
+<img width="1291" height="492" alt="image" src="https://github.com/user-attachments/assets/49dd400e-1809-47ac-a0d6-9e46f0eeaf4a" />
+
+<img width="680" height="442" alt="image" src="https://github.com/user-attachments/assets/b19ffd1e-7241-4331-9ea6-0d52a55c7f80" />
+
 I got to know Modified Julian Date, a scientific way to represent the days like '604560' instead of 'March 3rd' for example.    
 
 **2. Visualising them simply with latitude and longitude, loading csv data** 
-![image](https://git.arts.ac.uk/user-attachments/assets/a63551c0-b64e-4846-a50e-b9d779081fa4)
+<img width="1510" height="800" alt="image" src="https://github.com/user-attachments/assets/696adb83-6ae6-46c0-ab62-b4640e275b1b" />
+
 
 ```js
 let burstdata;
@@ -56,7 +57,8 @@ function setup() {
 }
 ```
 **3. Timelapse of September to now in 20s duration since running the program**  
-![image](https://git.arts.ac.uk/user-attachments/assets/601d081b-8a1b-4f1d-a2dc-3e1ad352bbb2)
+<img width="1380" height="800" alt="image" src="https://github.com/user-attachments/assets/0e389268-d777-4fa1-a9a7-87a81a310c2b" />
+
 I struggled to do this, in Arduino millis() is the function for getting the time since running the code, and so was p5js. It would be easy to do this with map() using Modified Julian Date, but to convert this into English text format of Date, I thoght I should maybe have another set of array containing all the conversions and the program access that with For loop. I ended up struggling with this a lot, with not many tutorials so I used Claude ai to help me (chatlog: https://claude.ai/share/aa1b77fa-d45b-4ab8-85e6-82f4608213c4).   You first subtract the start of the Julian Date (1970) and then multiply by milliseconds in a day, and then use JavaScript function to convert that into a date.   
 Apart from the conversion, a mistake I made was calling the function but not using the returned value 
 ```js
@@ -93,8 +95,9 @@ It was straightforward to map the radius and baseColour (higher the intensity, d
     fill(0, 0, 0, baseColour);
     circle(Xcord, Ycord, radius);
 ```
-I didn't know how to assign this tremspeed variable that I made to the fill changing. It was more complicated than I thought, involving the use of millis() and sin() functions. (link is same LLM chatlog as before)   
-![image](https://git.arts.ac.uk/user-attachments/assets/eca487d6-38e9-43c7-824f-d343234943fc)
+ 
+<img width="1380" height="800" alt="image" src="https://github.com/user-attachments/assets/b0d95fc3-37b5-4dc2-9387-8d3afbb78fec" />
+
 ```js
  let TremSpeed = map(intensity[i], 0.000000032368, 0.000261, 20, 30);
      let pulse = map(sin(millis() * 0.001 * TremSpeed + i), -1, 1, 0.5, 1);
