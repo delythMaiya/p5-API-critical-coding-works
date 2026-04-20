@@ -1,16 +1,12 @@
-![image](https://git.arts.ac.uk/user-attachments/assets/8d170254-36b6-4560-8035-c6052291df99)
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/f5fc9776-a42e-4e2c-aa7f-38227648f61e" />
 
-## Midterm Project  
-
-_Six Steps From Me_  
+## _Six Steps From Me_  
 _Delyth Field_   
 
 
 **PROJECT DESCRIPTION**
 
-
-
-From Assignment 4 part b, we were asked to create our own version of Vera Molnar's work. I wanted to reflect on her work "Interruptions” series (1960s–1970s).   
+I wanted to reflect on Vera Molnar's "Interruptions” series (1960s–1970s).   
 Molnar introduces 'small error' to the ordered system which disrupts it gradually, with lines shifting, breaking or reconnecitng. 
 I wanted to relate this to the idea, [Six Degrees of Separation](https://en.wikipedia.org/wiki/Six_degrees_of_separation), where a person is six or fewer social connections away from any other person in the world.   
 This level of interconnectedness also means that a disruption, chaos and positive/negative influence can easily spread through human society starting from one single node. 
@@ -24,10 +20,9 @@ Work: https://editor.p5js.org/sizalyth/full/BHTTFzesl
 Source Code : https://editor.p5js.org/sizalyth/sketches/BHTTFzesl   
 
 **Changes**
-
 In my concept, I talked of how any two nodes can be connected by six steps. Few days later, I thought that if this is the case, having += 1 for connections until it reaches 6 is not really accurate way. In the real world, some people have more connections than others. If someone has 17 close connections whereas someone has 3 close connections, my work of having six lines maximum each node is not really what I wanted to represent. I need to randomise the connection value, bigger nodes having bigger connections and smaller ones less. What I need to ensure is that any two node can be connected by six steps. Realising this flaw, I made adjustments to the connection values. I changed it to random(2, 12), and this makes the maximum value of connections allowed inconsistent and unpredictable each time, which for now works to vary the values of each node's connections. 
 For bigger nodes, I made the strokeWeight greater to highlight more power.  
-![image](https://git.arts.ac.uk/user-attachments/assets/848474d5-61f0-4ca6-ba71-53c135f75860)
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/6affda35-e5d8-403d-80e7-ccf87c60e663" />
 
 ```js
  if (k>= 800){
@@ -42,10 +37,10 @@ For bigger nodes, I made the strokeWeight greater to highlight more power.
 
 **My Process**
 
-![WhatsApp Image 2025-12-20 at 21 49 50](https://git.arts.ac.uk/user-attachments/assets/0a4b0fbe-5d56-4f00-9c99-26b6903feb88)
+<img width="1133" height="1600" alt="image" src="https://github.com/user-attachments/assets/77d306a5-a6e5-411c-9e79-611327c3a05d" />
 
 I began by experimenting with nodes to decide whether I prefer the nodes to be in the setup with lines emerging gradually or nodes emerge immediately.  
- ![file1](https://git.arts.ac.uk/user-attachments/assets/794a4e0f-f3b3-4cbe-9149-1cbdb816056d)
+<img width="400" height="400" alt="image" src="https://github.com/user-attachments/assets/7c3d732e-15e3-4c6c-8fac-665fc862b35e" />    
 
 ```js                                                              
 
@@ -61,8 +56,9 @@ function draw() {
   circle(random(400), random(400), random(5, 10));
 }
 ```
-The other version where nodes are all written out when we run the code: 
-  ![image](https://git.arts.ac.uk/user-attachments/assets/2a362cfd-1758-4553-b2fe-eca7f6673ade)
+The other version where nodes are all written out when we run the code:   
+<img width="400" height="400" alt="image" src="https://github.com/user-attachments/assets/5e14d8a0-0a0d-46ad-a26c-d6900efae663" />   
+
 ```js                                                             
 function setup() {
   createCanvas(400, 400);
@@ -78,10 +74,11 @@ function setup() {
   
 }
 ```
-I decided to make the nodes emerge from setup straightaway otherwise if I try to draw line(x, y with circle x, y), all the nodes must have another pairing six nodes, and human networks are not like that. Close, neibouring people doesn't mean you have strong ties with them.   #
+I decided to make the nodes emerge from setup straightaway otherwise if I try to draw line(x, y with circle x, y), all the nodes must have another pairing six nodes, and human networks are not like that. Close, neibouring people doesn't mean you have strong ties with them.  
 To make the line() connect one circle's xy to connect to another xy, I have to store them in array.   
-Also, to represent the idea of powerful people, influential connectors (hubs), I created a separate for loop. I looked up that there is a function called pow() which could favour towards a value and make it not uniform distribution of proability, but for this occasion I'm going to stick to the ways I know.   
-![image](https://git.arts.ac.uk/user-attachments/assets/1cb3fe6c-b4b8-4439-b9aa-dfbf27235eb9)  
+Also, to represent the idea of powerful people, influential connectors (hubs), I created a separate for loop.   
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/d682a3e7-ea78-4df4-ad8c-bff4af844147" />
+
 ```js                                                                          
 et nodes = [];
   
