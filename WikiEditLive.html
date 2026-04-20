@@ -1,0 +1,423 @@
+let articles = [];
+let chain = [];
+let selectedArticle;
+let view = 'live'; //default is realtime edits view. 
+
+let liveScroll = 0;
+let scrollOffset = 0;
+let autoScroll = true;
+
+let queue = [];
+let processing = false;
+let lastEnqueueTime = 0;
+
+let chainRunning = false;
+let nodePositions = [];
+let animProgress = [];
+let lastChainLen = 0;
+
+let chainCategories = {};
+
+const cache = new Map();
+let requestQueue = [];
+let processingRequests = false; //default state (a request to fetch data has not been made yet.)
+let lastRequestTime = 0;
+const REQUEST_DELAY = 800;
+
+// adding this function was necessary afterwards because of the 429 Too Many Requests error. By using this, I don't get blocked by Wiki API to fetch data, although the compromise is added latency. 
+function enqueueRequest(fn) { //https://youtu.be/A5PiecCRnE0?si=Kqk2M1ztIOR5KG-L this video helped me the most to understand how to use Promise. 
+  return new Promise((resolve, reject) => {
+    requestQueue.push({ fn, resolve, reject }); // add the request to the queue
+    processRequests();// jump to the processing function. 
+  });
+}
+//https://youtu.be/670f71LTWpM?si=be1v9ovTq0jtA061 
+//I tweaked the code from these two sources combined https://medium.com/@conboys111/rate-limiting-made-simple-how-to-control-asynchronous-operations-e885a9ad0930 & https://stackoverflow.com/questions/23072815/throttle-javascript-function-calls-but-with-queuing-dont-discard-calls 
+async function processRequests() { //processes sequnetially, so that rate limit is not exceeded (wiki API has a limit of 200/minute). 
+  if (processingRequests) return; // if already processing, just return and let the ongoing process handle the queue. 
+  processingRequests = true; //avoid multiple requests being processed at the same time. 
+  while (requestQueue.length > 0) {
+    const { fn, resolve, reject } = requestQueue.shift(); //
+    const wait = Math.max(0, REQUEST_DELAY - (Date.now() - lastRequestTime)); // calculate how much time to wait before making the next request, based on the last request time and the defined delay.
+    if (wait > 0) await new Promise(r => setTimeout(r, wait));
+    lastRequestTime = Date.now();
+    const result = await fn();
+    resolve(result);
+  }
+  processingRequests = false;
+}
+
+//This below code was added with Claude AI LLM, after reslving the 429 Too Many Requests error, to add caching to the API calls. This way, if the same data is requested again, it can be returned immediately without making another API call.
+async function safeFetch(url, cacheKey = null) { // a wrapper around fetch that uses the request queue and caching. 
+  if (cacheKey && cache.has(cacheKey)) return cache.get(cacheKey);
+  return enqueueRequest(async () => {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(res.status);
+    const data = await res.json();
+    if (cacheKey) cache.set(cacheKey, data);
+    return data;
+  });
+}
+
+//unlike the queue above, this one is for fetching real-time edited Wiki article summaries and images.
+function enqueue(title, comment, user) {
+  const now = Date.now();
+  if (now - lastEnqueueTime < 3000) return;
+  lastEnqueueTime = now;
+  const article = { title, imgObj: null, summary: '', comment, user }; //object instead of writing out separately to make it easier to manage. 
+  articles.unshift(article); //add to the beginning of the array. 
+  articles = articles.slice(0, 30);
+  queue.push({ title, article }); // add to the processing queue.
+  processQueue();
+}
+
+async function processQueue() { //processes the queue of articles to fetch their summaries and images, with a delay between each to avoid hitting rate limits.
+  if (processing) return;
+  processing = true;
+  while (queue.length > 0) {
+    const item = queue.shift(); //get the next item from the queue.
+    item.attempts = (item.attempts || 0) + 1; //track how many times we've tried to fetch this item.
+    if (item.attempts > 2) continue; //if we've already tried 3 times, skip it to avoid getting stuck on problematic items which causes to get blocked by Wiki API.
+    const res = await fetch(
+      `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(item.title)}`
+    );
+    if (res.status === 429) { //if an error happens (429 is for Too Many Requests), add the item back to the front of the queue and wait longer before trying again.
+      queue.unshift(item);
+      await new Promise(r => setTimeout(r, 4000)); //4 seconds delay before retrying. 
+      continue;
+    }
+    if (!res.ok) continue; //if it's some other error, just skip it. ! is for if the requests was not successful. 
+    const summary = await res.json(); //get the summary data from the response.
+    item.article.summary = summary.extract || ''; // || is an OR operator, so if the summary failes there's a backup of extract or an empty string. 
+    if (summary.thumbnail) {
+      loadImage(summary.thumbnail.source, img => { item.article.imgObj = img; }); //load the thumbnail image if it exists, and store it in the article object.
+    }
+    await new Promise(r => setTimeout(r, 2000)); //wait 2 seconds before processing the next item to avoid hitting rate limits.
+  }
+  processing = false; //when the queue is empty. 
+}
+
+
+function setup() {
+  createCanvas(windowWidth, windowHeight);
+  textFont('Georgia');
+  //https://youtu.be/X_DdIXrmWOo?si=ACjyzCghPAb9BX_k 
+  const stream = new EventSource('https://stream.wikimedia.org/v2/stream/recentchange'); //instead of fetch, EventSource had to be used for this API because of continuous stream. 
+  stream.onmessage = (event) => {
+    const data = JSON.parse(event.data); //CODING TRain WIkipedia API video and JSON parsing video helped me understand this. 
+    if (data.server_name === 'en.wikipedia.org' && data.type === 'edit' && data.namespace === 0) {
+      enqueue(data.title, data.comment, data.user);
+    }
+  };
+}
+
+//either live view or chain view. 
+function draw() {
+  background(255);
+  if (view === 'live') drawLiveView();
+  if (view === 'chain') drawChainView();
+}
+function drawLiveView() {
+  //Live view is for showing the real-time edits. It displays a list of recently edited articles with their titles, summaries, and user names. 
+  fill(0);
+  noStroke();
+  textSize(40);
+  textStyle(BOLD);
+  text("Wiki Edit Live", 20, 55);
+  fill(120);
+  textSize(14);
+  textStyle(NORMAL);
+  text("Click any article to follow its first-link chain", 20, 78);
+
+  push();
+  translate(0, -liveScroll); //when scrolliing with mouse wheel, the content moves up and down by adjusting the translation based on the liveScroll value.
+
+  for (let i = 0; i < articles.length; i++) {
+    let article = articles[i];
+    let y = 95 + i * 70;
+    let isHovered = (mouseY + liveScroll) > y && (mouseY + liveScroll) < y + 65 && mouseX > 10 && mouseX < width - 10;
+    fill(isHovered ? 240 : 250);
+    noStroke();
+    rect(10, y, width - 20, 65, 6);
+    if (article.imgObj) {
+      image(article.imgObj, 18, y + 5, 55, 55);
+    } else {
+      fill(200); rect(18, y + 5, 55, 55, 4);
+    }
+    fill(0); textSize(14); textStyle(BOLD);
+    text(article.title, 85, y + 20);
+    fill(90); textSize(11); textStyle(NORMAL);
+    text(article.comment ? article.comment.substring(0, 90) : '', 85, y + 36);
+    fill(160); textSize(10);
+    text(`👤 ${article.user}`, 85, y + 52);
+  }
+
+  pop();
+}
+
+//This function is called when the user clicks on an article in the live view, and it calculates the positions of the nodes in the chain view. 
+function buildLayout() {
+  nodePositions = []; //array to store the positions. 
+  const cx = width / 2; //centre of the screen. 
+  for (let i = 0; i < chain.length; i++) { //for each article in the chain, calculate its position.
+    let xOffset = sin(i * 0.9) * (40 + i * 3); //(using a sine wave so it goes zig zag gently)
+    xOffset = constrain(xOffset, -(width / 2 - 160), (width / 2 - 160)); //doesn't go too far to the sides, margins. 
+    nodePositions.push({ x: cx + xOffset, y: 100 + i * 80 }); //push these positions to the array. 
+  }
+}
+
+//chain view is for showing the chain of first links from the selected article.
+function drawChainView() {
+  fill(220); noStroke(); rect(10, 10, 80, 32, 6); //back button
+  fill(0); textSize(13); textStyle(NORMAL);
+  textAlign(CENTER, CENTER); text("← Back", 50, 26); textAlign(LEFT, BASELINE);
+  fill(0); textSize(30); textStyle(BOLD);
+  text(`Chain from: ${selectedArticle}`, 110, 32); //retrieve the title of the selected article. 
+
+  if (chain.length !== lastChainLen) { // 
+    buildLayout(); //recalculate the layout if the chain length has changed (new nodes added).
+    while (animProgress.length < chain.length) animProgress.push(0); //if new nodes are added, add new animation progress values for them, starting at 0 (not animated).
+    lastChainLen = chain.length; //update the last chain length to the current one.
+  }
+
+  for (let i = 0; i < animProgress.length; i++) { //for each node, increase its animation progress value, which controls how much of the node and edge is drawn.
+    animProgress[i] = min(1, animProgress[i] + 0.04);
+  }
+
+  //mousewheel scrolls through the chain, I pasted this code for mouse wheel from Claude AI LLM (transcript available)
+  let maxScroll = max(0, chain.length * 80 + 120 - height + 60);
+  if (autoScroll) scrollOffset = maxScroll; //if autoScroll is true, keep the scrollOffset at the maximum, so it stays scrolled to the bottom as new nodes are added.
+
+  push();
+  translate(0, -scrollOffset);//same as live view, but for chain view, scroll offset is applied up and down to move through the chain. 
+
+  //Using lerp to animate the edges and nodes as they appear. when animProgress goes from 0 to 1, the edge will be drawn from the start node to the end node, and the node will grow from a small circle to its full size.
+  for (let i = 0; i < chain.length - 1; i++) { //draw a curve between each pair of nodes, with the curve's end point determined by the animation progress value for the next node, so it animates as the next node appears.
+    let a = nodePositions[i], b = nodePositions[i + 1];
+    let p = animProgress[i + 1]; //get the animation progress for the next node, which controls how much of the edge is drawn.
+    let ex = lerp(a.x, b.x, p), ey = lerp(a.y, b.y, p); //calculate the end point of the curve based on the animation progress.
+    strokeWeight(2); stroke(180, 60, 60, 180); noFill();
+    beginShape();
+    vertex(a.x, a.y);
+    quadraticVertex((a.x + b.x) / 2, (a.y + b.y) / 2, ex, ey); //I'm using a quadratic vertex because it creates a nice curved edge between the nodes, and it looks better than a straight line. 
+    //https://p5js.org/reference/p5/quadraticVertex/
+    endShape();
+  }
+
+  // nodes
+  for (let i = 0; i < chain.length; i++) { //for each node, draw it with a size and opacity based on its animation progress value, so it animates as it appears.
+    let pos = nodePositions[i];
+    let p = animProgress[i];
+    let r = lerp(0, 10, p); //using lerp 
+    let alpha = map(p, 0, 1, 0, 255);
+
+    noStroke(); fill(255, 80, 80, 30 * p); //draw a larger, lighter circle behind the main node circle to create a glow effect that also animates in.
+    ellipse(pos.x, pos.y, r * 3.5, r * 3.5);
+    fill(i === 0 ? color(220, 50, 50) : color(255, 255, 255), alpha);
+    stroke(180, 60, 60, alpha); strokeWeight(2);
+    ellipse(pos.x, pos.y, r * 2, r * 2);
+
+    if (p > 0.5) { //after the node is more than halfway animated, start drawing the label text with increasing opacity as it finishes animating.
+      noStroke(); fill(30, 30, 30, map(p, 0.5, 1, 0, 255));
+      textSize(40); textStyle(i === chain.length - 1 ? BOLD : NORMAL);
+      textAlign(LEFT, CENTER);
+      let label = chain[i];//the title of the article for this node.
+      if (label.length > 38) label = label.substring(0, 36) + '…'; //.substring is used to shorten the label if it's too long, and add an ellipsis at the end.  
+      //I looked at the code for substring on https://editor.p5js.org/estevancarlos/sketches/s93-Qv4sI 
+      let labelX = pos.x + 14;
+      if (labelX + textWidth(label) > width - 10) { textAlign(RIGHT, CENTER); labelX = pos.x - 14; }
+      text(label, labelX, pos.y); //draw the label text to the right of the node, but if it would go off the edge of the screen, draw it to the left instead.
+      textAlign(LEFT, BASELINE);
+    }
+
+    if (p > 0.8) { //after the node is mostly animated, start drawing the index number with increasing opacity as it finishes animating, to indicate the position of the node in the chain.
+      fill(255, map(p, 0.8, 1, 0, 255)); textSize(8);
+      textAlign(CENTER, CENTER); text(i + 1, pos.x, pos.y); textAlign(LEFT, BASELINE);
+    }
+  }
+
+  pop();
+
+  // This is the background text in chain view showing the categories of the very first article (starting point), so it gives context even if the chain is long and the user scrolls down. 
+  const cats = chainCategories[chain[0]];
+  if (cats && cats.length > 0) { //if there are categories for the first article, display them in the background.
+    noStroke(); textStyle(NORMAL); textSize(25);
+    let placed = [];
+    randomSeed(42); //https://p5js.org/reference/p5/randomSeed/ & https://www.reddit.com/r/learnpython/comments/s678b0/explain_randomseed_like_im_five/
+    for (let j = 0; j < min(cats.length, 12); j++) { //display up to 12 categories, and try to place them randomly around the center without overlapping too much.
+      let cat = cats[j];
+      let tw = textWidth(cat), th = 20;
+      let x, y, fits = false, attempts = 0;
+      while (!fits && attempts < 200) { //
+        x = width / 2 + random(-320, 320) - tw / 2;
+        y = height / 2 + random(-250, 250);
+        fits = true;
+        for (let p of placed) { //check if the new category label overlaps with any previously placed labels, and if so, try a different position.
+          if (x < p.x + p.w + 12 && x + tw > p.x - 12 && y < p.y + p.h + 8 && y + th > p.y - 8) {
+            fits = false; break;
+          }
+        }
+        attempts++;
+      }
+      placed.push({ x, y, w: tw, h: th }); //store the position and size of the placed label to check against for future labels.
+      fill(100, 100, 180, 90);
+      textAlign(LEFT, TOP);
+      text(cat, x, y);
+    }
+    textAlign(LEFT, BASELINE);
+  }
+}
+
+//fetches the categories for a given article title and stores them in the chainCategories object
+async function fetchCategories(title) { //reference: coding train Wikipedia API video https://youtu.be/RPz75gcHj18?si=L7H2MJbQdTMHHFlL 
+  if (chainCategories[title]) return;
+  chainCategories[title] = [];
+  const data = await safeFetch(
+    `https://en.wikipedia.org/w/api.php?origin=*&action=query&format=json&prop=categories&titles=${encodeURIComponent(title)}&clshow=!hidden&cllimit=max`,
+    `cats:${title}`
+  );
+  const pages = data.query.pages;
+  const cats = [];
+  for (let p in pages) {
+    if (pages[p].categories) {
+      for (let cat of pages[p].categories) cats.push(cat.title.replace('Category:', ''));
+    }
+  }
+  chainCategories[title] = cats;
+}
+
+async function startChain(title, steps = 20) { //repeatedly fetch the first link of the current article.
+  if (chainRunning) return; //if a chain is already running, don't start another one. prevents multiple clicks running multiple chains. 
+  chainRunning = true;
+  chainCategories = {};
+  let visited = [], current = title, isFirst = true; //visited array to keep track of articles we've already seen in this chain, to detect loops.
+
+  while (steps > 0) {
+    if (visited.includes(current)) { chain.push(`Loop: ${current}`); break; }
+    visited.push(current);
+    chain.push(current);
+    if (isFirst) { fetchCategories(current); isFirst = false; }
+    const next = await getFirstLink(current);
+    if (!next) break;
+    current = next;
+    steps--;
+  }
+  chainRunning = false;
+}
+
+//I found a Python code for getting the first link of a Wikipedia article in this StackOverflow thread: https://stackoverflow.com/questions/18916616/get-first-link-of-wikipedia-article-using-wikipedia-api and I adapted it using Gemini AI LLM. 
+//https://gemini.google.com/share/023272eecb55
+async function getFirstLink(page) {
+  const data = await safeFetch(
+    `https://en.wikipedia.org/w/api.php?action=parse&page=${encodeURIComponent(page)}&prop=text&format=json&origin=*`,
+    `parse:${page}`
+  );
+  if (!data || !data.parse) return null;
+
+  const div = document.createElement('div');
+  div.innerHTML = data.parse.text["*"];
+
+  const content = div.querySelector('.mw-parser-output');
+  if (!content) return null;
+
+  const blocks = Array.from(content.children).filter(el => {
+    return el.tagName === 'P' || el.tagName === 'UL';
+  });
+
+  for (let block of blocks) {
+    const links = block.querySelectorAll('a');
+    for (let link of links) {
+      const ref = link.getAttribute('href');
+      if (isValid(ref, block, link)) {
+        return decodeURIComponent(ref.replace('/wiki/', '').replace(/_/g, ' '));
+      }
+    }
+  }
+  return null;
+}
+
+function isValid(ref, block, linkEl) {
+  if (!ref) return false;
+  if (ref.includes('#')) return false;
+  if (ref.includes('//')) return false;
+  if (!ref.includes('/wiki/')) return false;
+  const articlePart = ref.replace('/wiki/', '');
+  if (articlePart.includes(':')) return false;
+
+  let openCount = 0, closeCount = 0;
+  const walker = document.createTreeWalker(block, NodeFilter.SHOW_TEXT);
+  while (walker.nextNode()) {
+    const node = walker.currentNode;
+    if (linkEl.contains(node)) break;
+    if (linkEl.compareDocumentPosition(node) & Node.DOCUMENT_POSITION_FOLLOWING) break;
+    openCount += (node.textContent.match(/\(/g) || []).length;
+    closeCount += (node.textContent.match(/\)/g) || []).length;
+  }
+  return openCount === closeCount;
+}
+
+
+//Mouse input. 
+function mousePressed() {
+  if (view === 'live') {
+
+    for (let i = 0; i < articles.length; i++) {
+      let article = articles[i];
+      let y = 95 + i * 70;
+
+      // Calculate hit area: adjusting for scroll position
+      let top = y;
+      let bottom = y + 65;
+      let left = 10;
+      let right = width - 10;
+
+      if ((mouseY + liveScroll) > top && (mouseY + liveScroll) < bottom &&
+        mouseX > left && mouseX < right) {
+
+        selectedArticle = article.title;
+        chain = [];
+        animProgress = [];
+        lastChainLen = 0;
+        scrollOffset = 0;
+        autoScroll = true;
+
+        view = 'chain';
+        startChain(article.title);
+
+        break;
+      }
+    }
+  } else if (view === 'chain') {
+    // Check for the "Back" button (top left corner)
+    if (mouseX > 10 && mouseX < 90 && mouseY > 10 && mouseY < 42) {
+      view = 'live';
+      chain = []; 
+      selectedArticle = null;
+      animProgress = [];
+      lastChainLen = 0;
+    }
+  }
+}
+function getPrecedingText(container, target) { //this function is used to get the text content that comes before a given target element within a container. This is used in the isValid function to check the text before a link to determine if it's within parentheses.
+  let text = '';
+  for (let node of container.childNodes) { //iterate through the child nodes of the container element.
+    if (node === target) break;
+    text += node.textContent;
+  }
+  return text;
+}
+function mouseWheel(event) { //when the user scrolls the mouse wheel, adjust the liveScroll or scrollOffset values based on the current view, and constrain them to prevent scrolling too far. 
+  if (view === 'live') {
+    let maxScroll = max(0, 95 + articles.length * 70 - height);
+    liveScroll = constrain(liveScroll + event.delta, 0, maxScroll);
+  } else {
+    let maxScroll = max(0, chain.length * 80 + 120 - height + 60);
+    scrollOffset = constrain(scrollOffset + event.delta, 0, maxScroll);
+    autoScroll = (scrollOffset >= maxScroll);
+  }
+  return false;
+}
+
+function windowResized() { //when the window is resized, adjust the canvas size to match the new window dimensions.
+  resizeCanvas(windowWidth, windowHeight);
+}
